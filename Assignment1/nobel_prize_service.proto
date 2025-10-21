@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package nobel_prize;
+
+// Service definition for Nobel Prize queries
+service NobelPrizeService {
+    // Query 1: Get total laureates by category and year range
+    rpc GetLaureatesByCategory(CategoryYearRequest) returns (LaureateCountResponse);
+    
+    // Query 2: Get total laureates by motivation keyword  
+    rpc GetLaureatesByMotivation(MotivationRequest) returns (LaureateCountResponse);
+    
+    // Query 3: Get laureate details by name
+    rpc GetLaureateByName(NameRequest) returns (LaureateDetailsResponse);
+}
+
+// Request message for category and year range query
+message CategoryYearRequest {
+    string category = 1;
+    int32 start_year = 2;
+    int32 end_year = 3;
+}
+
+// Request message for motivation keyword query
+message MotivationRequest {
+    string keyword = 1;
+}
+
+// Request message for name query
+message NameRequest {
+    string firstname = 1;
+    string surname = 2;
+}
+
+// Response message for count queries
+message LaureateCountResponse {
+    int32 total_laureates = 1;
+    bool success = 2;
+    string error_message = 3;
+}
+
+// Response message for laureate details query
+message LaureateDetailsResponse {
+    repeated LaureateDetail laureates = 1;
+    bool success = 2;
+    string error_message = 3;
+}
+
+// Individual laureate details
+message LaureateDetail {
+    string year = 1;
+    string category = 2;
+    string motivation = 3;
+}
