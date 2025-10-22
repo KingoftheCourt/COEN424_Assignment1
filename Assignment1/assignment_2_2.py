@@ -58,7 +58,7 @@ class NobelPrizeService(pb2_grpc.NobelPrizeServiceServicer):
             )
 
 def serve():
-    port = os.getenv("GRPC_PORT", "50051")
+    port = os.getenv("PORT", "50051")
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=8))
     pb2_grpc.add_NobelPrizeServiceServicer_to_server(NobelPrizeService(), server)
     server.add_insecure_port(f"[::]:{port}")
